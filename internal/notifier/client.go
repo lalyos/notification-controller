@@ -23,6 +23,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/http"
 	"net/url"
@@ -35,6 +36,8 @@ import (
 type requestOptFunc func(*retryablehttp.Request)
 
 func postMessage(ctx context.Context, address, proxy string, certPool *x509.CertPool, payload interface{}, reqOpts ...requestOptFunc) error {
+	log.Printf("[notif-ctrl::client.go::postMessage()][HACK] address:%s payload:%q \n", address, payload)
+
 	httpClient := retryablehttp.NewClient()
 	if certPool != nil {
 		httpClient.HTTPClient.Transport = &http.Transport{

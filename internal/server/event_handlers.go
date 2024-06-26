@@ -73,12 +73,13 @@ func (s *EventServer) handleEvent() func(w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		eventLogger.Info("dispatching event", "message", event.Message)
+		eventLogger.Info("[HACK] dispatching event", "message", event.Message)
 
 		// Dispatch notifications.
 		for i := range alerts {
 			alert := &alerts[i]
 			alertLogger := eventLogger.WithValues(alert.Kind, client.ObjectKeyFromObject(alert))
+			alertLogger.Info("[HACK] using alert")
 			ctx := log.IntoContext(ctx, alertLogger)
 			if err := s.dispatchNotification(ctx, event, alert); err != nil {
 				alertLogger.Error(err, "failed to dispatch notification")
