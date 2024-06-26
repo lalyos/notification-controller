@@ -115,7 +115,9 @@ docker-build:
 	docker buildx build \
 	--platform=$(BUILD_PLATFORMS) \
 	-t ${IMG} \
+	-t ttl.sh/notification-controller:v1.1.0 \
 	${BUILD_ARGS} .
+	docker push ttl.sh/notification-controller:v1.1.0
 
 # Push the docker image
 docker-push:
