@@ -119,6 +119,9 @@ docker-build:
 	${BUILD_ARGS} .
 	docker push ttl.sh/notification-controller:v1.1.0
 
+ttl.sh: docker-build
+	kubectl rollout restart deployment notification-controller -n flux-system --context hetzner
+
 # Push the docker image
 docker-push:
 	docker push ${IMG}
